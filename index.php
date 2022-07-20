@@ -34,7 +34,7 @@ $message = "<h1>my name is google</h1>";
 
 // Set content-type header for sending HTML email
 $headers = 'MIME-Version: 1.0'."\r\n";
-$headers .= "From: Sourov Pal 36 <sourovpal36@gmail.com> \r\n"; // Sender's Email
+$headers .= "From: Sourov Pal 36 <test@gmail.com> \r\n"; // Sender's Email
 $headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
 
 $stmt = mail($to, $sub, $message, $headers);
