@@ -1,5 +1,43 @@
 <?php 
 
+
+$to      = $request->email;
+                $subject = 'Verification Code';
+                $message = '<!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                              <meta charset="UTF-8">
+                              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                              <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                              <title>Document</title>
+                            </head>
+                            <body>
+                            <h3>Your Verification Code Is : <b> '.$code.' </b></h3>
+                            </body>
+                            </html>';
+                $headers = '';
+                $headers .= "From: myplace@example.com\r\n";
+                $headers .= "Reply-To: myplace2@example.com\r\n";
+                $headers .= "Return-Path: myplace@example.com\r\n";
+                $headers .= "CC: sombodyelse@example.com\r\n";
+                $headers .= "BCC: hidden@example.com\r\n";
+                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+                
+                
+                            
+                mail($to, $subject, $message, $headers);
+
+
+
+
+
+
+
+
+
+
+
+
 $to = "your email address";
 
 $sub = "message test";
