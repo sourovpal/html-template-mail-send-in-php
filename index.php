@@ -87,3 +87,64 @@ else
 	echo"message not send";
 }
     exit;
+	
+	
+	
+Mail::send(
+    'emails.order.order',
+    array(
+        'dateTime'  => $dateTime,
+        'items'     => $items
+    ),
+    function($message) use ($toEmail, $toName) {
+        $message->from('my@email.com', 'My Company');
+
+        $message->to($toEmail, $toName);
+        $message->bcc('mybcc@email.com');
+
+        $message->subject('New order');
+    }
+);	
+	
+ function($message) use ($toEmail, $toName) {
+        $message->from('my@email.com', 'My Company')
+                ->to($toEmail, $toName)
+                ->bcc('mybcc@email.com','My bcc Name')
+                ->subject('New order');
+    }	
+	
+	
+	
+	Mail::to($email)
+->cc($arraywithemails)
+->send(new document());
+	
+	
+	
+	
+	
+	Mail::to($request->user())
+    ->cc($moreUsers)
+    ->bcc($evenMoreUsers)
+    ->send(new OrderShipped($order));
+	
+	
+	// for example
+$emails = array("myemail1@email.com", "myemail2@email.com");
+$input = Input::all();
+
+Mail::send('emails.admin-company', array('body' => Input::get('email_body')), 
+function($message) use ($emails, $input) {
+    $message
+    ->from('admin@admin.org', 'Administrator')
+    ->subject('Admin Subject');
+
+        foreach ($emails as $email) {
+            $message->to($email);
+        }
+});
+	
+var_dump( Mail:: failures());	
+	
+	
+	
