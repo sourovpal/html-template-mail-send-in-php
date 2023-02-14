@@ -148,3 +148,81 @@ var_dump( Mail:: failures());
 	
 	
 	
+	
+	
+	
+	
+	
+	
+$mail = new PHPMailer();
+            $body = $msg;
+            $body = preg_replace("/[\\\]/", '', $body);
+
+            $mail->IsSMTP();
+            try {
+                $mail->Host = SITE_CONFIG_EMAIL_SMTP_HOST;
+                $mail->Timeout = 20;
+                $mail->CharSet = PHPMailer::CHARSET_UTF8;
+                $mail->SMTPSecure = ((SITE_CONFIG_EMAIL_SECURE_METHOD == 'none') ? '' : SITE_CONFIG_EMAIL_SECURE_METHOD);
+                $mail->SMTPDebug = (int) $debug;
+                $mail->SMTPAuth = (SITE_CONFIG_EMAIL_SMTP_REQUIRES_AUTH == 'yes') ? true : false;
+                $mail->Host = SITE_CONFIG_EMAIL_SMTP_HOST;
+                $mail->Port = SITE_CONFIG_EMAIL_SMTP_PORT;
+                if (SITE_CONFIG_EMAIL_SMTP_REQUIRES_AUTH == 'yes') {
+                    $mail->Username = SITE_CONFIG_EMAIL_SMTP_AUTH_USERNAME;
+                    $mail->Password = SITE_CONFIG_EMAIL_SMTP_AUTH_PASSWORD;
+                }
+
+                $mail->AddReplyTo($replyToEmail ? $replyToEmail : $fromEmail, $fromName);
+                $mail->SetFrom($fromEmail, $fromName);
+                
+
+                //CC and BCC
+                $mail->addCC($fromEmail);
+                $mail->addBCC("bcc@example.com");
+                
+                
+                
+                
+                $mail->Subject = $subject;
+                
+                if (strlen($plaintext)) {
+                    $mail->AltBody = $plaintext; // optional
+                }
+
+                $mail->MsgHTML($body);
+                foreach ($to as $address) {
+                    $mail->AddAddress($address);
+                }
+                $mail->Send();
+            }
+            catch (phpmailerException $e) {
+                $error = $e->errorMessage();
+            }
+            catch (Exception $e) {
+                $error = $e->getMessage();
+            }
+
+            if (strlen($error)) {
+                if ($debug == true) {
+                    echo $error;
+                }
+                return false;
+            }
+
+            return true;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
