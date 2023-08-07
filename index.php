@@ -214,7 +214,30 @@ $mail = new PHPMailer();
 	
 	
 	
-	
+	function send_smtp_mail($host,$port,$username,$password,$to,$to_username,$title,$body,$site_title) {
+		require 'include/mailer/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+		$mail->CharSet = 'UTF-8';
+		$mail->isSMTP();                               // Set mailer to use SMTP
+		$mail->Host = "$host";  					   // Specify main and backup SMTP servers
+		$mail->SMTPAuth = true;                        // Enable SMTP authentication
+		$mail->Username = "$username";                 // SMTP username
+		$mail->Password = "$password";                 // SMTP password
+		$mail->SMTPSecure = 'tls';                     // Enable TLS encryption, `ssl` also accepted
+		$mail->Port = $port;             			   // TCP port to connect to
+		$mail->From = "$username";
+		$mail->FromName = "$site_title";
+		$mail->addAddress("$to", "$to_username");      // Add a recipient 
+		$mail->isHTML(true);                           // Set email format to HTML                            
+		$mail->Subject = "$title";
+		$mail->Body    = "$body";
+		$mail->AltBody = "".strip_tags($body)."";
+		if ($mail->send()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	
